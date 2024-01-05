@@ -48,17 +48,23 @@ class InvoiceController extends Controller
         $invoice->description = $description;
         $invoice->save();
 
-        $merchantID = '11111';
-        $resCode = 200;
-        $message = 'Invoice added successfully';
-        $resData = base64_encode(json_encode([
-            'merchantID' => $merchantID,
+        $encryptionKey = '0123456789ABCDEF';
+        $dataToEncrypt = json_encode([
             'serviceName' => $serviceName,
             'orderId' => $orderId,
             'posId' => $posId,
             'amount' => $amount,
-            'description' => $description
-        ]));
+            'description' => $description,
+        ]);
+
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-128-cbc'));
+        $encryptedData = openssl_encrypt($dataToEncrypt, 'aes-128-cbc', $encryptionKey, 0, $iv);
+        $encodedData = base64_encode($iv . $encryptedData);
+
+        $merchantID = '11111';
+        $resCode = 200;
+        $message = 'Success';
+        $resData = $encodedData;
 
         Log::info('Invoice added', [
             'serviceName' => $serviceName,
