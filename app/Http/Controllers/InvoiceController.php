@@ -49,7 +49,7 @@ class InvoiceController extends Controller
         $invoice->save();
 
         $merchantID = '11111';
-        $resCode = 'Success';
+        $resCode = 200;
         $message = 'Invoice added successfully';
         $resData = base64_encode(json_encode([
             'merchantID' => $merchantID,
