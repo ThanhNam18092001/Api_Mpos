@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/invoices', [InvoiceController::class, 'addInvoice']);
 
-Route::delete('/invoices', [InvoiceController::class, 'cancelInvoice']);
+Route::delete('/invoice-cancel', [InvoiceController::class, 'cancelInvoice']);
 
 Route::put('/update-transaction', [InvoiceController::class, 'updateTransaction']);
 

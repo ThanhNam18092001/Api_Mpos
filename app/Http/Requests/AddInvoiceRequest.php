@@ -24,9 +24,9 @@ class AddInvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'serviceName' => 'required',
-            'orderId' => 'required|unique:invoices',
-            'posId' => 'required',
+            'service_name' => 'required',
+            'order_id' => 'required|unique:invoices',
+            'pos_id' => 'required',
             'amount' => 'required|numeric',
         ];
     }
